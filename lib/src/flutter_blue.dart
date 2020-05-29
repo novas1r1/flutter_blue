@@ -227,16 +227,18 @@ class DeviceIdentifier {
 }
 
 class ScanResult {
-  const ScanResult({this.device, this.advertisementData, this.rssi});
+  const ScanResult({this.device, this.advertisementData, this.rawAdvertisementData, this.rssi});
 
   ScanResult.fromProto(protos.ScanResult p)
       : device = new BluetoothDevice.fromProto(p.device),
         advertisementData =
             new AdvertisementData.fromProto(p.advertisementData),
+        rawAdvertisementData = new RawAdvertisementData.fromProto(p.rawAdvertisementData),
         rssi = p.rssi;
 
   final BluetoothDevice device;
   final AdvertisementData advertisementData;
+  final RawAdvertisementData rawAdvertisementData;
   final int rssi;
 
   @override
@@ -251,7 +253,22 @@ class ScanResult {
 
   @override
   String toString() {
-    return 'ScanResult{device: $device, advertisementData: $advertisementData, rssi: $rssi}';
+    return 'ScanResult{device: $device, advertisementData: $advertisementData, rawAdvertisementData: $rawAdvertisementData,  rssi: $rssi}';
+  }
+}
+
+class RawAdvertisementData {
+  final ByteData data;
+
+  RawAdvertisementData({
+    this.data,
+  });
+
+  RawAdvertisementData.fromProto(protos.RawAdvertisementData p) : data = p.data;
+
+  @override
+  String toString() {
+    return 'RawAdvertisementData{data: $data}';
   }
 }
 

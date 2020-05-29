@@ -38,6 +38,10 @@ message AdvertisementData {
   repeated string service_uuids = 6;
 }
 
+message RawAdvertisementData {
+  bytes data = 1;
+}
+
 message ScanSettings {
   int32 android_scan_mode = 1;
   repeated string service_uuids = 2;

@@ -37,8 +37,10 @@ public class ProtoMaker {
     static Protos.ScanResult from(BluetoothDevice device, byte[] advertisementData, int rssi) {
         Protos.ScanResult.Builder p = Protos.ScanResult.newBuilder();
         p.setDevice(from(device));
-        if(advertisementData != null && advertisementData.length > 0)
+        if(advertisementData != null && advertisementData.length > 0) {
             p.setAdvertisementData(AdvertisementParser.parse(advertisementData));
+            p.setRawAdvertisementData(advertisementData);
+        }
         p.setRssi(rssi);
         return p.build();
     }
@@ -90,6 +92,8 @@ public class ProtoMaker {
         }
         p.setRssi(scanResult.getRssi());
         p.setAdvertisementData(a.build());
+        // TODO setRawAdvertisementData -> which value?
+        p.setRawAdvertisementData(a.value);
         return p.build();
     }
 
